@@ -1,4 +1,4 @@
-package com.pb.nkk.logjson.data;
+package com.pb.nkk.log.data;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -8,7 +8,7 @@ import java.util.Map;
  * Created by anatoliy on 09.04.2015.
  * данные исходящего запроса к внешней системе (включая СУБД) и полученного на него ответа
  */
-public class OutReqLogData extends LogData {
+public class OutReqStashLogData extends StashLogData {
 
     @SerializedName("DURATION")
     private long duration;
@@ -29,7 +29,7 @@ public class OutReqLogData extends LogData {
     @SerializedName("RESPONSE_HEADERS")
     private String responseHeaders;
 
-    public OutReqLogData() {
+    public OutReqStashLogData() {
         super("OUTREQ");
     }
 
@@ -104,14 +104,14 @@ public class OutReqLogData extends LogData {
     }
 
     /**
-     * параметры запроса (если поместить их в поле {@link OutReqLogData#requestBody} ​проблематично)
+     * параметры запроса (если поместить их в поле {@link OutReqStashLogData#requestBody} ​проблематично)
      */
     public Map<String, String> getRequestParams() {
         return requestParams;
     }
 
     /**
-     * параметры запроса (если поместить их в поле {@link OutReqLogData#requestBody} ​проблематично)
+     * параметры запроса (если поместить их в поле {@link OutReqStashLogData#requestBody} ​проблематично)
      */
     public void setRequestParams(Map<String, String> requestParams) {
         this.requestParams = requestParams;
@@ -162,7 +162,15 @@ public class OutReqLogData extends LogData {
     @Override
     public String toString() {
         return "OutReqLogData{" +
-                "duration=" + duration +
+                "dt='" + dt + '\'' +
+                ", type='" + type + '\'' +
+                ", ref='" + ref + '\'' +
+                ", sid='" + sid + '\'' +
+                ", login='" + login + '\'' +
+                ", remoteHost='" + remoteHost + '\'' +
+                ", extRef='" + extRef + '\'' +
+                ", extAttr=" + extAttr +
+                ", duration=" + duration +
                 ", requestUri='" + requestUri + '\'' +
                 ", requestBody='" + requestBody + '\'' +
                 ", requestHeaders=" + requestHeaders +
@@ -171,6 +179,6 @@ public class OutReqLogData extends LogData {
                 ", responseCode='" + responseCode + '\'' +
                 ", responseBody='" + responseBody + '\'' +
                 ", responseHeaders='" + responseHeaders + '\'' +
-                "} " + super.toString();
+                "} ";
     }
 }

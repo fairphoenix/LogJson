@@ -1,4 +1,4 @@
-package com.pb.nkk.logjson.data;
+package com.pb.nkk.log.data;
 
 
 import com.google.gson.annotations.SerializedName;
@@ -6,11 +6,13 @@ import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
+import java.util.Map;
+
 /**
  * Created by anatoliy on 09.04.2015.
  * Объект содержащий атребуты записываемые в лог. Будет сериализоваться в JSON.
  */
-public abstract class LogData {
+public abstract class StashLogData<T extends StashLogData> {
 
     private final static DateTimeFormatter DT_FORMAT = DateTimeFormat.forPattern("yyyyMMdd HH:mm:ss.SSS");
 
@@ -29,14 +31,20 @@ public abstract class LogData {
     @SerializedName("EXTREF")
     protected String extRef;
     @SerializedName("EXTATTR")
-    protected Object extAttr;
+    protected Map<String, Object> extAttr;
 
-    protected LogData(String type) {
+    protected StashLogData(String type) {
         this.type = type;
+        fillDefaultByMdc();
     }
+
+    private void fillDefaultByMdc(){
+
+    };
 
     /**
      * дата и время наступления события
+     *
      * @return строка в формате "yyyyMMdd HH:mm:ss.SSS"
      */
     public String getDt() {
@@ -53,15 +61,17 @@ public abstract class LogData {
     /**
      * дата и время наступления события
      */
-    public void setdDt(long timeStamp) {
+    public T setdDt(long timeStamp) {
         this.dt = DT_FORMAT.print(new DateTime(timeStamp));
+        return (T) this;
     }
 
     /**
      * дата и время наступления события
      */
-    public void setdDt(DateTime dateTime) {
+    public T setdDt(DateTime dateTime) {
         this.dt = DT_FORMAT.print(dateTime);
+        return (T) this;
     }
 
     /**
@@ -74,8 +84,9 @@ public abstract class LogData {
     /**
      * идентификатор операции, к которой относится данная запись
      */
-    public void setRef(String ref) {
+    public T setRef(String ref) {
         this.ref = ref;
+        return (T) this;
     }
 
     /**
@@ -90,13 +101,14 @@ public abstract class LogData {
      * идентификатор авторизационной сессии, от имени которой выполняется операция, к
      * которой относится запись
      */
-    public void setSid(String sid) {
+    public T setSid(String sid) {
         this.sid = sid;
+        return (T) this;
     }
 
     /**
      * ​имя пользователя, производящего операцию, к которой относится запись (при
-     * наличии заполненного атрибута {@link LogData#sid} ​может не использоваться)
+     * наличии заполненного атрибута {@link StashLogData#sid} ​может не использоваться)
      */
     public String getLogin() {
         return login;
@@ -104,10 +116,11 @@ public abstract class LogData {
 
     /**
      * ​имя пользователя, производящего операцию, к которой относится запись (при
-     * наличии заполненного атрибута {@link LogData#sid} ​может не использоваться)
+     * наличии заполненного атрибута {@link StashLogData#sid} ​может не использоваться)
      */
-    public void setLogin(String login) {
+    public T setLogin(String login) {
         this.login = login;
+        return (T) this;
     }
 
     /**
@@ -122,8 +135,9 @@ public abstract class LogData {
      * ​​IP­адрес хоста, с которым производится обмен данными (еслиоперация подразумевает
      * взаимодействие с внешними системами)
      */
-    public void setRemoteHost(String remoteHost) {
+    public T setRemoteHost(String remoteHost) {
         this.remoteHost = remoteHost;
+        return (T) this;
     }
 
     /**
@@ -138,35 +152,26 @@ public abstract class LogData {
      * идентификатор операции, к которой относится данная запись, в терминах удаленной
      * системы (если таковой предусмотрен и операция подразумевает взаимодействие с внешними системами)
      */
-    public void setExtRef(String extRef) {
+    public T setExtRef(String extRef) {
         this.extRef = extRef;
+        return (T) this;
     }
 
     /**
      * дополнительные атрибуты
      */
-    public Object getExtAttr() {
+    public Map<String, Object> getExtAttr() {
         return extAttr;
     }
 
     /**
      * дополнительные атрибуты
      */
-    public void setExtAttr(Object extAttr) {
+    public T setExtAttr(Map<String, Object> extAttr) {
         this.extAttr = extAttr;
+        return (T) this;
     }
 
     @Override
-    public String toString() {
-        return "LogData{" +
-                "dt='" + dt + '\'' +
-                ", type='" + type + '\'' +
-                ", ref='" + ref + '\'' +
-                ", sid='" + sid + '\'' +
-                ", login='" + login + '\'' +
-                ", remoteHost='" + remoteHost + '\'' +
-                ", extRef='" + extRef + '\'' +
-                ", extAttr=" + extAttr +
-                '}';
-    }
+    public abstract String toString();
 }

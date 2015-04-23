@@ -1,4 +1,4 @@
-package com.pb.nkk.logjson.data;
+package com.pb.nkk.log.data;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -8,7 +8,7 @@ import java.util.Map;
  * Created by anatoliy on 09.04.2015.
  * данные поступившего запроса и сформированного ответа
  */
-public class InReqLogData extends LogData {
+public class InReqStashLogData extends StashLogData {
 
     @SerializedName("DURATION")
     private long duration;
@@ -30,7 +30,7 @@ public class InReqLogData extends LogData {
     private String objId;
 
 
-    public InReqLogData() {
+    public InReqStashLogData() {
         super("INREQ");
     }
 
@@ -163,7 +163,15 @@ public class InReqLogData extends LogData {
     @Override
     public String toString() {
         return "InReqLogData{" +
-                "duration=" + duration +
+                "dt='" + dt + '\'' +
+                ", type='" + type + '\'' +
+                ", ref='" + ref + '\'' +
+                ", sid='" + sid + '\'' +
+                ", login='" + login + '\'' +
+                ", remoteHost='" + remoteHost + '\'' +
+                ", extRef='" + extRef + '\'' +
+                ", extAttr=" + extAttr +
+                ", duration=" + duration +
                 ", requestUri='" + requestUri + '\'' +
                 ", requestBody='" + requestBody + '\'' +
                 ", requestHeaders=" + requestHeaders +
@@ -172,6 +180,6 @@ public class InReqLogData extends LogData {
                 ", responseBody='" + responseBody + '\'' +
                 ", responseHeaders=" + responseHeaders +
                 ", objId='" + objId + '\'' +
-                "} " + super.toString();
+                "} ";
     }
 }

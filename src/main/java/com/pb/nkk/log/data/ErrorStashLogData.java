@@ -1,4 +1,4 @@
-package com.pb.nkk.logjson.data;
+package com.pb.nkk.log.data;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
  * Created by anatoliy on 09.04.2015.
  * сообщение об ошибке
  */
-public class ErrorLogData extends LogData {
+public class ErrorStashLogData extends StashLogData<ErrorStashLogData> {
 
     @SerializedName("ERRCODE")
     private String errCode;
@@ -15,7 +15,7 @@ public class ErrorLogData extends LogData {
     @SerializedName("STACKTRACE")
     private String stackTrace;
 
-    public ErrorLogData() {
+    public ErrorStashLogData() {
         super("ERROR");
     }
 
@@ -29,8 +29,9 @@ public class ErrorLogData extends LogData {
     /**
      * код логической или системной ошибки
      */
-    public void setErrCode(String errCode) {
+    public ErrorStashLogData setErrCode(String errCode) {
         this.errCode = errCode;
+        return this;
     }
 
     /**
@@ -43,8 +44,9 @@ public class ErrorLogData extends LogData {
     /**
      * текст ошибки
      */
-    public void setErrText(String errText) {
+    public ErrorStashLogData setErrText(String errText) {
         this.errText = errText;
+        return this;
     }
 
     /**
@@ -57,16 +59,25 @@ public class ErrorLogData extends LogData {
     /**
      * stacktrace точки возникновения ошибки
      */
-    public void setStackTrace(String stackTrace) {
+    public ErrorStashLogData setStackTrace(String stackTrace) {
         this.stackTrace = stackTrace;
+        return this;
     }
 
     @Override
     public String toString() {
         return "ErrorLogData{" +
-                "errCode='" + errCode + '\'' +
+                "dt='" + dt + '\'' +
+                ", type='" + type + '\'' +
+                ", ref='" + ref + '\'' +
+                ", sid='" + sid + '\'' +
+                ", login='" + login + '\'' +
+                ", remoteHost='" + remoteHost + '\'' +
+                ", extRef='" + extRef + '\'' +
+                ", extAttr=" + extAttr +
+                ", errCode='" + errCode + '\'' +
                 ", errText='" + errText + '\'' +
                 ", stackTrace='" + stackTrace + '\'' +
-                "} " + super.toString();
+                "} ";
     }
 }
