@@ -1,13 +1,10 @@
-package com.pb.nkk.log;
+package com.pb.nkk.log.test;
 
-import com.google.gson.GsonBuilder;
-import com.pb.nkk.log.data.DebugStashLogData;
 import com.pb.nkk.log.data.ErrorStashLogData;
 import com.pb.nkk.log.data.MdcLogAttr;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.pb.nkk.log.logger.StashLogger;
+import com.pb.nkk.log.logger.StashLoggerFactory;
 import org.slf4j.MDC;
-import org.slf4j.helpers.BasicMarkerFactory;
 
 /**
  * Created by anatoliy on 09.04.2015.
@@ -28,21 +25,19 @@ public class TestLog {
 //        logger.debug("Hello debug");
 
         MDC.put(MdcLogAttr.LOGIN.toString(), "dn110191sav");
-
-        DebugStashLogData logData = new DebugStashLogData().setSid("sidTest").setRef("refTest");
-        System.out.println(logData);
-        System.out.println(new GsonBuilder().setPrettyPrinting().create().toJson(logData));
-        logger.error2stash(new ErrorStashLogData());
-
+//        DebugStashLogData logData = new DebugStashLogData().setSid("sidTest").setRef("refTest");
+//        System.out.println(logData);
+//        System.out.println(new GsonBuilder().setPrettyPrinting().create().toJson(logData));
+        logger.error2stash(new ErrorStashLogData().setErrText("Ooops..."));
         //logger.debug2stash(new DebugStashLogData().setSid("sidTest").setRef("refTest"));
 
 
-//        try{
-//            throw new SecurityException("Boom!");
-//        }
-//        catch (Exception ex){
-//            logger.error(ex.getMessage(), ex);
-//        }
+        try{
+            throw new SecurityException("Boom!");
+        }
+        catch (Exception ex){
+            logger.error(ex.getMessage(), ex);
+        }
         MDC.clear();
 
     }

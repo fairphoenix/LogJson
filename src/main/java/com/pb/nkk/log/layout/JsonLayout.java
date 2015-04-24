@@ -11,7 +11,7 @@
  * under the terms of the GNU Lesser General Public License version 2.1
  * as published by the Free Software Foundation.
  */
-package com.pb.nkk.log;
+package com.pb.nkk.log.layout;
 
 import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.pattern.ThrowableProxyConverter;
@@ -160,8 +160,6 @@ public class JsonLayout extends JsonLayoutBase<ILoggingEvent> {
 
     @Override
     protected Map toJsonMap(ILoggingEvent event) {
-        event.getArgumentArray()
-        event.getMDCPropertyMap()
         Map<String, Object> map = new LinkedHashMap<String, Object>();
         Marker marker = event.getMarker();
         if("OUTREQ".equals(marker.getName())){

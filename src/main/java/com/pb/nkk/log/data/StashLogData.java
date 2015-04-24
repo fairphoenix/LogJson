@@ -1,11 +1,13 @@
 package com.pb.nkk.log.data;
 
 
+import com.google.common.collect.Maps;
 import com.google.gson.annotations.SerializedName;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -31,16 +33,15 @@ public abstract class StashLogData<T extends StashLogData> {
     @SerializedName("EXTREF")
     protected String extRef;
     @SerializedName("EXTATTR")
-    protected Map<String, Object> extAttr;
+    protected Map<String, Object> extAttr = new HashMap<String, Object>();
+    @SerializedName("SOURCE")
+    protected Source source;
+    @SerializedName("MSG")
+    protected String msg;
 
     protected StashLogData(String type) {
         this.type = type;
-        fillDefaultByMdc();
     }
-
-    private void fillDefaultByMdc(){
-
-    };
 
     /**
      * дата и время наступления события
@@ -172,6 +173,76 @@ public abstract class StashLogData<T extends StashLogData> {
         return (T) this;
     }
 
+    public Source getSource() {
+        return source;
+    }
+
+    public T setSource(Source source) {
+        this.source = source;
+        return (T) this;
+    }
+
+    /**
+     * текстовое сообщение
+     */
+    public String getMsg() {
+        return msg;
+    }
+
+    /**
+     * текстовое сообщение
+     */
+    public T setMsg(String msg) {
+        this.msg = msg;
+        return (T) this;
+    }
+
     @Override
     public abstract String toString();
+
+    public static class Source {
+
+        @SerializedName("NAME")
+        private String name;
+        @SerializedName("HOST")
+        private String host;
+        @SerializedName("NODE")
+        private String node;
+
+        public String getHost() {
+            return host;
+        }
+
+        public Source setHost(String host) {
+            this.host = host;
+            return this;
+        }
+
+        public String getNode() {
+            return node;
+        }
+
+        public Source setNode(String node) {
+            this.node = node;
+            return this;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public Source setName(String name) {
+            this.name = name;
+            return this;
+        }
+
+        @Override
+        public String toString() {
+            return "Source{" +
+                    "host='" + host + '\'' +
+                    ", name='" + name + '\'' +
+                    ", node='" + node + '\'' +
+                    '}';
+        }
+    }
 }

@@ -17,11 +17,11 @@ public class OutReqStashLogData extends StashLogData {
     @SerializedName("REQUEST_BODY")
     private String requestBody;
     @SerializedName("REQUEST_HEADERS")
-    private Map<String, String> requestHeaders;
+    private String requestHeaders;
     @SerializedName("REQUEST_TYPE")
     private String requestType;
     @SerializedName("REQUEST_PARAMS")
-    private Map<String, String> requestParams;
+    private String requestParams;
     @SerializedName("RESPONSE_CODE")
     private String responseCode;
     @SerializedName("RESPONSE_BODY")
@@ -78,14 +78,14 @@ public class OutReqStashLogData extends StashLogData {
     /**
      * ​служебная информация запроса (если используется), например, заголовок HTTP­пакета
      */
-    public Map<String, String> getRequestHeaders() {
+    public String getRequestHeaders() {
         return requestHeaders;
     }
 
     /**
      * ​служебная информация запроса (если используется), например, заголовок HTTP­пакета
      */
-    public void setRequestHeaders(Map<String, String> requestHeaders) {
+    public void setRequestHeaders(String requestHeaders) {
         this.requestHeaders = requestHeaders;
     }
 
@@ -106,14 +106,14 @@ public class OutReqStashLogData extends StashLogData {
     /**
      * параметры запроса (если поместить их в поле {@link OutReqStashLogData#requestBody} ​проблематично)
      */
-    public Map<String, String> getRequestParams() {
+    public String getRequestParams() {
         return requestParams;
     }
 
     /**
      * параметры запроса (если поместить их в поле {@link OutReqStashLogData#requestBody} ​проблематично)
      */
-    public void setRequestParams(Map<String, String> requestParams) {
+    public void setRequestParams(String requestParams) {
         this.requestParams = requestParams;
     }
 

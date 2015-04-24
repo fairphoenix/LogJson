@@ -1,4 +1,4 @@
-package com.pb.nkk.log;
+package com.pb.nkk.log.logger;
 
 import com.pb.nkk.log.data.*;
 import org.slf4j.Logger;
@@ -277,5 +277,26 @@ public class StashLoggerImpl implements StashLogger {
 
     public void outReq2stash(OutReqStashLogData data) {
         logger.info("", data);
+    }
+
+    //TODO
+    public void debug2stash(DebugStashLogData data, Throwable t) {
+
+    }
+
+    public void error2stash(ErrorStashLogData data, Throwable t) {
+
+    }
+
+    public void info2stash(InfoStashLogData data, Throwable t) {
+
+    }
+
+    public void inReq2stash(InReqStashLogData data, Throwable t) {
+
+    }
+
+    public void outReq2stash(OutReqStashLogData data, Throwable t) {
+
     }
 }

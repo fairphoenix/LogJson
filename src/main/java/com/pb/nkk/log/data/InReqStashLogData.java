@@ -17,7 +17,7 @@ public class InReqStashLogData extends StashLogData {
     @SerializedName("REQUEST_BODY")
     private String requestBody;
     @SerializedName("REQUEST_HEADERS")
-    private Map<String, String> requestHeaders;
+    private String requestHeaders;
     @SerializedName("REQUEST_TYPE")
     private String requestType;
     @SerializedName("RESPONSE_CODE")
@@ -25,7 +25,7 @@ public class InReqStashLogData extends StashLogData {
     @SerializedName("RESPONSE_BODY")
     private String responseBody;
     @SerializedName("RESPONSE_HEADERS")
-    private Map<String, String> responseHeaders;
+    private String responseHeaders;
     @SerializedName("OBJ_ID")
     private String objId;
 
@@ -79,14 +79,14 @@ public class InReqStashLogData extends StashLogData {
     /**
      * служебная информация запроса (если используется), например, заголовок HTTP­пакета
      */
-    public Map<String, String> getRequestHeaders() {
+    public String getRequestHeaders() {
         return requestHeaders;
     }
 
     /**
      * служебная информация запроса (если используется), например, заголовок HTTP­пакета
      */
-    public void setRequestHeaders(Map<String, String> requestHeaders) {
+    public void setRequestHeaders(String requestHeaders) {
         this.requestHeaders = requestHeaders;
     }
 
@@ -135,14 +135,14 @@ public class InReqStashLogData extends StashLogData {
     /**
      * служебная информация ответа (если используется), например, заголовок HTTP­пакета
      */
-    public Map<String, String> getResponseHeaders() {
+    public String getResponseHeaders() {
         return responseHeaders;
     }
 
     /**
      * служебная информация ответа (если используется), например, заголовок HTTP­пакета
      */
-    public void setResponseHeaders(Map<String, String> responseHeaders) {
+    public void setResponseHeaders(String responseHeaders) {
         this.responseHeaders = responseHeaders;
     }
 
