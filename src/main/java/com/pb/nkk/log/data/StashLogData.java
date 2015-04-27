@@ -202,8 +202,8 @@ public abstract class StashLogData<T extends StashLogData> {
 
     public static class Source {
 
-        @SerializedName("NAME")
-        private String name;
+        @SerializedName("APPLICATION")
+        private String application;
         @SerializedName("HOST")
         private String host;
         @SerializedName("NODE")
@@ -227,12 +227,12 @@ public abstract class StashLogData<T extends StashLogData> {
             return this;
         }
 
-        public String getName() {
-            return name;
+        public String getApplication() {
+            return application;
         }
 
-        public Source setName(String name) {
-            this.name = name;
+        public Source setApplication(String application) {
+            this.application = application;
             return this;
         }
 
@@ -240,7 +240,7 @@ public abstract class StashLogData<T extends StashLogData> {
         public String toString() {
             return "Source{" +
                     "host='" + host + '\'' +
-                    ", name='" + name + '\'' +
+                    ", application='" + application + '\'' +
                     ", node='" + node + '\'' +
                     '}';
         }

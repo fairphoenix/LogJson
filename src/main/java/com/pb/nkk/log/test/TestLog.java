@@ -6,6 +6,8 @@ import com.pb.nkk.log.logger.StashLogger;
 import com.pb.nkk.log.logger.StashLoggerFactory;
 import org.slf4j.MDC;
 
+import java.util.Map;
+
 /**
  * Created by anatoliy on 09.04.2015.
  */
@@ -24,11 +26,12 @@ public class TestLog {
 //        logger.error("Hello error");
 //        logger.debug("Hello debug");
 
+        MDC.put("MY_ATTR", "SUPER value 123");
         MDC.put(MdcLogAttr.LOGIN.toString(), "dn110191sav");
 //        DebugStashLogData logData = new DebugStashLogData().setSid("sidTest").setRef("refTest");
 //        System.out.println(logData);
 //        System.out.println(new GsonBuilder().setPrettyPrinting().create().toJson(logData));
-        logger.error2stash(new ErrorStashLogData().setErrText("Ooops..."));
+        logger.error2stash(new ErrorStashLogData().setErrText("Ooops...").setErrCode("123"));
         //logger.debug2stash(new DebugStashLogData().setSid("sidTest").setRef("refTest"));
 
 
@@ -39,6 +42,7 @@ public class TestLog {
             logger.error(ex.getMessage(), ex);
         }
         MDC.clear();
+
 
     }
 }

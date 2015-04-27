@@ -13,6 +13,7 @@
 
     <appender name="STDOUT2" class="ch.qos.logback.core.ConsoleAppender">
         <encoder class="com.pb.nkk.log.layout.StashPatternLayoutEncoder">
+            <application>LogJson</application>
             <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger - %msg%n</pattern>
         </encoder>
     </appender>

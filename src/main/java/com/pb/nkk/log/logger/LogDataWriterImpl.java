@@ -3,12 +3,12 @@ package com.pb.nkk.log.logger;
 import ch.qos.logback.classic.pattern.ThrowableProxyConverter;
 import ch.qos.logback.classic.spi.ILoggingEvent;
 import com.google.common.base.Strings;
-import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import com.google.gson.annotations.SerializedName;
 import com.pb.nkk.log.data.*;
 
-import java.util.List;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.Map;
 
 /**
@@ -16,9 +16,28 @@ import java.util.Map;
  */
 public class LogDataWriterImpl implements LogDataWriter {
 
+    private final static String NODE = System.getProperty("name");
+    private final static String HOST;
+    private String application;
+
+    static {
+        String tmpHost;
+        try {
+            tmpHost = InetAddress.getLocalHost().toString();
+        } catch (UnknownHostException e) {
+            tmpHost = "UNKNOWN";
+        }
+        HOST = tmpHost;
+    }
+
+    public LogDataWriterImpl(String application) {
+        this.application = application;
+    }
+
     private ThrowableProxyConverter throwableProxyConverter = new ThrowableProxyConverter();
 
     public void writeFromEvent(ILoggingEvent event, StashLogData data) {
+        writeSource(event, data);
         writeDefaultInfo(event, data);
         if (data instanceof ErrorStashLogData) {
             writeErrorInfo(event, (ErrorStashLogData) data);
@@ -29,6 +48,14 @@ public class LogDataWriterImpl implements LogDataWriter {
         if (data instanceof OutReqStashLogData) {
             writeOutReqInfo(event, (OutReqStashLogData) data);
         }
+    }
+
+    private void writeSource(ILoggingEvent event, StashLogData data) {
+        StashLogData.Source source = new StashLogData.Source();
+        source.setApplication(application);
+        source.setHost(HOST);
+        source.setNode(NODE);
+        data.setSource(source);
     }
 
     private void writeDefaultInfo(ILoggingEvent event, StashLogData data) {

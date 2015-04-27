@@ -15,6 +15,7 @@ import com.pb.nkk.log.logger.LogDataWriterImpl;
 public class StashPattenLayout extends PatternLayout {
 
     private Gson gson;
+    private String application;
 
     private LogDataWriter logDataWriter;
 
@@ -26,9 +27,10 @@ public class StashPattenLayout extends PatternLayout {
         this.logDataWriter = logDataWriter;
     }
 
-    public StashPattenLayout() {
+    public StashPattenLayout(String application) {
+        this.application = application;
         gson = new GsonBuilder().setPrettyPrinting().create();
-        logDataWriter = new LogDataWriterImpl();
+        logDataWriter = new LogDataWriterImpl(application);
     }
 
     @Override
