@@ -1,28 +1,27 @@
-<configuration>
-
-    <!--<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">-->
-        <!--&lt;!&ndash; encoders are assigned the type-->
-             <!--ch.qos.logback.classic.encoder.PatternLayoutEncoder by default &ndash;&gt;-->
-        <!--<encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">-->
-            <!--&lt;!&ndash;<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger - %msg%n</pattern>&ndash;&gt;-->
-            <!--&lt;!&ndash;<layout class="com.pb.nkk.log.layout.JsonLayout" />&ndash;&gt;-->
-            <!--<layout class="com.pb.nkk.log.layout.TextSampleLayout" />-->
-        <!--</encoder>-->
-    <!--</appender>-->
-
+<configuration debug="true">
+    <!--<insertFromJNDI env-entry-name="java:comp/env/appName" as="appName" />-->
+    <!--<contextName>${appName}</contextName>-->
+    <contextName>LogJson</contextName>
 
     <appender name="STDOUT2" class="ch.qos.logback.core.ConsoleAppender">
         <encoder class="com.pb.nkk.log.layout.StashPatternLayoutEncoder">
-            <application>LogJson</application>
-            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger - %msg%n</pattern>
+            <pattern>%d{HH:mm:ss.SSS} %contextName [%thread] %-5level %logger - %msg%n</pattern>
         </encoder>
     </appender>
 
-    <!--<root level="info">-->
-        <!--<appender-ref ref="STDOUT" />-->
-    <!--</root>-->
+    <appender name="FILE" class="ch.qos.logback.core.FileAppender">
+        <file>myApp.log</file>
+        <encoder class="com.pb.nkk.log.layout.StashPatternLayoutEncoder">
+            <pattern>%date %contextName %level [%thread] %logger [%file:%line] %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <logger name="com.pb.nkk.log.test" level="debug" additivity="false">
+        <appender-ref ref="FILE"/>
+    </logger>
 
     <root level="debug">
         <appender-ref ref="STDOUT2" />
+        <!--<appender-ref ref="FILE" />-->
     </root>
 </configuration>

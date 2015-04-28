@@ -6,8 +6,8 @@ import ch.qos.logback.core.CoreConstants;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.pb.nkk.log.data.StashLogData;
-import com.pb.nkk.log.logger.LogDataWriter;
-import com.pb.nkk.log.logger.LogDataWriterImpl;
+import com.pb.nkk.log.filler.Filler;
+import com.pb.nkk.log.filler.FillerFactory;
 
 /**
  * Created by anatoliy on 24.04.2015.
@@ -15,22 +15,19 @@ import com.pb.nkk.log.logger.LogDataWriterImpl;
 public class StashPattenLayout extends PatternLayout {
 
     private Gson gson;
-    private String application;
 
-    private LogDataWriter logDataWriter;
+    private FillerFactory fillerFactory;
 
     public void setGson(Gson gson) {
         this.gson = gson;
     }
 
-    public void setLogDataWriter(LogDataWriter logDataWriter) {
-        this.logDataWriter = logDataWriter;
+    public void setFillerFactory(FillerFactory fillerFactory) {
+        this.fillerFactory = fillerFactory;
     }
 
-    public StashPattenLayout(String application) {
-        this.application = application;
+    public StashPattenLayout() {
         gson = new GsonBuilder().setPrettyPrinting().create();
-        logDataWriter = new LogDataWriterImpl(application);
     }
 
     @Override
@@ -39,7 +36,8 @@ public class StashPattenLayout extends PatternLayout {
             StringBuilder buf = new StringBuilder(128);
             for(Object obj: event.getArgumentArray()){
                 if(obj instanceof StashLogData){
-                    logDataWriter.writeFromEvent(event, (StashLogData) obj);
+                    Filler filler = fillerFactory.createFillerByData((StashLogData) obj);
+                    filler.fillData((StashLogData) obj, event);
                     buf.append(gson.toJson(obj));
                 } else {
                     buf.append(obj);
