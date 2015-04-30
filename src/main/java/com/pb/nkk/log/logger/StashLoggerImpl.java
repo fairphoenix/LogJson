@@ -260,7 +260,7 @@ public class StashLoggerImpl implements StashLogger {
     }
 
     public void debug2stash(DebugStashLogData data) {
-        logger.debug("", data);
+        logger.debug(data.getMsg(), data);
     }
 
     public void error2stash(ErrorStashLogData data) {
@@ -268,35 +268,34 @@ public class StashLoggerImpl implements StashLogger {
     }
 
     public void info2stash(InfoStashLogData data) {
-        logger.info("", data);
+        logger.info(data.getMsg(), data);
     }
 
     public void inReq2stash(InReqStashLogData data) {
-        logger.info("", data);
+        logger.info(data.getMsg(), data);
     }
 
     public void outReq2stash(OutReqStashLogData data) {
-        logger.info("", data);
+        logger.info(data.getMsg(), data);
     }
 
-    //TODO
     public void debug2stash(DebugStashLogData data, Throwable t) {
-
+        logger.debug(data.getMsg(), data, t);
     }
 
     public void error2stash(ErrorStashLogData data, Throwable t) {
-
+        logger.error(data.getMsg(), data, t);
     }
 
     public void info2stash(InfoStashLogData data, Throwable t) {
-
+        logger.info(data.getMsg(), data, t);
     }
 
     public void inReq2stash(InReqStashLogData data, Throwable t) {
-
+        logger.info(data.getMsg(), data, t);
     }
 
     public void outReq2stash(OutReqStashLogData data, Throwable t) {
-
+        logger.info(data.getMsg(), data, t);
     }
 }

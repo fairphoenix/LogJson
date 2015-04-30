@@ -14,6 +14,7 @@ public final class StashLoggerFactory {
         //Скрываем информацию при логгировании стектрейса об обертке над logback
         loggerContext.getFrameworkPackages().add("com.pb.nkk.log.logger");
         loggerContext.getFrameworkPackages().add("com.pb.nkk.log.layout");
+        loggerContext.getFrameworkPackages().add("com.pb.nkk.log.filler");
         loggerContext.getFrameworkPackages().add("ch.qos.logback");
         loggerContext.getLoggerContextRemoteView().getName();
     }

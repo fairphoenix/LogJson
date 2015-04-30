@@ -1,6 +1,7 @@
 package com.pb.nkk.log.test;
 
 import com.pb.nkk.log.data.ErrorStashLogData;
+import com.pb.nkk.log.data.InfoStashLogData;
 import com.pb.nkk.log.data.MdcLogAttr;
 import com.pb.nkk.log.logger.StashLogger;
 import com.pb.nkk.log.logger.StashLoggerFactory;
@@ -31,7 +32,9 @@ public class TestLog {
 //        DebugStashLogData logData = new DebugStashLogData().setSid("sidTest").setRef("refTest");
 //        System.out.println(logData);
 //        System.out.println(new GsonBuilder().setPrettyPrinting().create().toJson(logData));
-        logger.error2stash(new ErrorStashLogData().setErrText("Ooops...").setErrCode("123"));
+        Exception root = new Exception("root");
+        logger.error2stash(new ErrorStashLogData().setErrText("Ooops...").setErrCode("123"), new RuntimeException("boom", root));
+        logger.info2stash(new InfoStashLogData().setMsg("hello"), new RuntimeException("hello boom", root));
         //logger.debug2stash(new DebugStashLogData().setSid("sidTest").setRef("refTest"));
 
 

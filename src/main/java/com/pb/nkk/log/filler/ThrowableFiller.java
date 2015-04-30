@@ -1,7 +1,11 @@
 package com.pb.nkk.log.filler;
 
+import ch.qos.logback.classic.pattern.ExtendedThrowableProxyConverter;
 import ch.qos.logback.classic.pattern.ThrowableProxyConverter;
 import ch.qos.logback.classic.spi.ILoggingEvent;
+import ch.qos.logback.classic.spi.IThrowableProxy;
+import ch.qos.logback.classic.spi.ThrowableProxy;
+import com.google.common.base.Throwables;
 import com.google.gson.annotations.SerializedName;
 import com.pb.nkk.log.data.StashLogData;
 
@@ -17,7 +21,10 @@ public class ThrowableFiller implements Filler {
         this.wrappedFiller = wrappedFiller;
     }
 
-    private ThrowableProxyConverter throwableProxyConverter = new ThrowableProxyConverter();
+    private ExtendedThrowableProxyConverter throwableProxyConverter = new ExtendedThrowableProxyConverter();
+
+    public ThrowableFiller() {
+    }
 
     public void fillData(StashLogData data, ILoggingEvent event) {
         wrappedFiller.fillData(data, event);
@@ -31,7 +38,15 @@ public class ThrowableFiller implements Filler {
     }
 
     private String obtainStackTrace(ILoggingEvent event) {
+//        IThrowableProxy throwableProxy = event.getThrowableProxy();
+//        if(throwableProxy != null && throwableProxy instanceof ThrowableProxy){
+//            ThrowableProxy proxy = (ThrowableProxy) throwableProxy;
+//            return Throwables.getStackTraceAsString(proxy.getThrowable());
+//        }
+//        return null;
+        throwableProxyConverter.start();
         String stackTrace = throwableProxyConverter.convert(event);
+        throwableProxyConverter.stop();
         return stackTrace.isEmpty() ? null : stackTrace;
     }
 

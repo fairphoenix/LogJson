@@ -8,7 +8,7 @@ import java.util.Map;
  * Created by anatoliy on 09.04.2015.
  * данные исходящего запроса к внешней системе (включая СУБД) и полученного на него ответа
  */
-public class OutReqStashLogData extends StashLogData {
+public class OutReqStashLogData extends StashLogData<OutReqStashLogData> {
 
     @SerializedName("DURATION")
     private long duration;

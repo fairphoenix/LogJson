@@ -29,6 +29,8 @@ public class DefaultFiller implements Filler {
     }
 
     public void fillData(StashLogData data, ILoggingEvent event) {
+        data.setdDt(event.getTimeStamp());
+        data.getExtAttr().put("LOGGER", event.getLoggerName());
         Map<String, String> mdc = event.getMDCPropertyMap();
         if (data.getRef() == null) {
             data.setRef(mdc.get(MdcLogAttr.REF.toString()));

@@ -8,7 +8,7 @@ import java.util.Map;
  * Created by anatoliy on 09.04.2015.
  * данные поступившего запроса и сформированного ответа
  */
-public class InReqStashLogData extends StashLogData {
+public class InReqStashLogData extends StashLogData<InReqStashLogData> {
 
     @SerializedName("DURATION")
     private long duration;

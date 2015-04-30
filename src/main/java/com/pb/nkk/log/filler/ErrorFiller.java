@@ -1,5 +1,7 @@
 package com.pb.nkk.log.filler;
 
+import ch.qos.logback.classic.pattern.ExtendedThrowableProxyConverter;
+import ch.qos.logback.classic.pattern.RootCauseFirstThrowableProxyConverter;
 import ch.qos.logback.classic.pattern.ThrowableProxyConverter;
 import ch.qos.logback.classic.spi.ILoggingEvent;
 import com.pb.nkk.log.data.ErrorStashLogData;
@@ -13,7 +15,7 @@ public class ErrorFiller implements Filler {
 
     private Filler wrappedFiller;
 
-    private ThrowableProxyConverter throwableProxyConverter = new ThrowableProxyConverter();
+    private RootCauseFirstThrowableProxyConverter throwableProxyConverter = new RootCauseFirstThrowableProxyConverter();
 
     public ErrorFiller(Filler wrappedFiller) {
         this.wrappedFiller = wrappedFiller;
@@ -36,7 +38,9 @@ public class ErrorFiller implements Filler {
     }
 
     private String obtainStackTrace(ILoggingEvent event) {
+        throwableProxyConverter.start();
         String stackTrace = throwableProxyConverter.convert(event);
+        throwableProxyConverter.stop();
         return stackTrace.isEmpty() ? null : stackTrace;
     }
 }

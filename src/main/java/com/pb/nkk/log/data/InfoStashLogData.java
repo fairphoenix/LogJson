@@ -4,7 +4,7 @@ package com.pb.nkk.log.data;
  * Created by anatoliy on 09.04.2015.
  * информационное сообщение
  */
-public class InfoStashLogData extends StashLogData {
+public class InfoStashLogData extends StashLogData<InfoStashLogData> {
     public InfoStashLogData() {
         super("INFO");
     }
