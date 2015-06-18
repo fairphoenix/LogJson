@@ -10,7 +10,7 @@ import com.pb.nkk.log.filler.Filler;
 import com.pb.nkk.log.filler.FillerFactory;
 
 /**
- * Created by anatoliy on 24.04.2015.
+ * Created by anatoliy on 18.06.2015.
  */
 public class StashPattenLayout extends PatternLayout {
 
@@ -24,10 +24,6 @@ public class StashPattenLayout extends PatternLayout {
 
     public void setFillerFactory(FillerFactory fillerFactory) {
         this.fillerFactory = fillerFactory;
-    }
-
-    public StashPattenLayout() {
-        gson = new GsonBuilder().setPrettyPrinting().create();
     }
 
     @Override

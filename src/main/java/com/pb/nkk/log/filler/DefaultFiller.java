@@ -16,16 +16,22 @@ import java.util.Map;
 public class DefaultFiller implements Filler {
 
     private final static String NODE = System.getProperty("name");
-    private final static String HOST;
+    private final static String HOST_NAME;
+    private final static String HOST_IP;
 
     static {
-        String tmpHost;
+        String tmpHostName;
+        String tmpHostIp;
         try {
-            tmpHost = InetAddress.getLocalHost().toString();
+            InetAddress localHost = InetAddress.getLocalHost();
+            tmpHostName = localHost.getHostName();
+            tmpHostIp = localHost.getHostAddress();
         } catch (UnknownHostException e) {
-            tmpHost = "UNKNOWN";
+            tmpHostName = "UNKNOWN";
+            tmpHostIp = "0.0.0.0";
         }
-        HOST = tmpHost;
+        HOST_NAME = tmpHostName;
+        HOST_IP = tmpHostIp;
     }
 
     public void fillData(StashLogData data, ILoggingEvent event) {
@@ -49,7 +55,8 @@ public class DefaultFiller implements Filler {
         }
         StashLogData.Source source = new StashLogData.Source();
         source.setApplication(event.getLoggerContextVO().getName());
-        source.setHost(HOST);
+        source.setHostIp(HOST_IP);
+        source.setHostName(HOST_NAME);
         source.setNode(NODE);
         data.setSource(source);
     }

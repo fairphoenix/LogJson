@@ -1,27 +1,44 @@
 <configuration debug="true">
-    <!--<insertFromJNDI env-entry-name="java:comp/env/appName" as="appName" />-->
-    <!--<contextName>${appName}</contextName>-->
+    <!-- Назваение проекта, будет записано в "SOURCE": {"APPLICATION": ....-->
     <contextName>LogJson</contextName>
 
+
+    <!-- Пример вывода логов в консоль -->
     <appender name="STDOUT2" class="ch.qos.logback.core.ConsoleAppender">
-        <encoder class="com.pb.nkk.log.layout.StashPatternLayoutEncoder">
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
             <pattern>%d{HH:mm:ss.SSS} %contextName [%thread] %-5level %logger - %msg%n</pattern>
         </encoder>
     </appender>
 
-    <appender name="FILE" class="ch.qos.logback.core.FileAppender">
-        <file>myApp.log</file>
+
+    <!-- Это будем записывать в файл если нужно записывать логи с дополнительной иформацией (StashLog) и обычные -->
+    <appender name="FILE_PATTERN_ALL_LOG" class="ch.qos.logback.core.FileAppender">
+        <file>stashPattern.log</file>
         <encoder class="com.pb.nkk.log.layout.StashPatternLayoutEncoder">
-            <pattern>%date %contextName %level [%thread] %logger [%file:%line] %msg%n</pattern>
+            <!-- Печатает форматированный json -->
+            <prettyPrinting>false</prettyPrinting>
+            <pattern>%d{HH:mm:ss.SSS} %contextName [%thread] %-5level %logger - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- Предположительно это будем отправлять в LOGSTASH-->
+    <appender name="FILE" class="ch.qos.logback.core.FileAppender">
+        <file>stashJson.log</file>
+        <encoder class="com.pb.nkk.log.layout.StashJsonLayoutEncoder">
+            <!-- Печатает форматированный json -->
+            <prettyPrinting>true</prettyPrinting>
         </encoder>
     </appender>
 
     <logger name="com.pb.nkk.log.test" level="debug" additivity="false">
         <appender-ref ref="FILE"/>
+        <appender-ref ref="FILE_PATTERN_ALL_LOG"/>
+        <appender-ref ref="STDOUT2"/>
     </logger>
 
     <root level="debug">
         <appender-ref ref="STDOUT2" />
-        <!--<appender-ref ref="FILE" />-->
+        <appender-ref ref="FILE_PATTERN_ALL_LOG" />
+        <appender-ref ref="FILE" />
     </root>
 </configuration>

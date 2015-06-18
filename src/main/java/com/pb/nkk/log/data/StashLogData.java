@@ -204,17 +204,28 @@ public abstract class StashLogData<T extends StashLogData> {
 
         @SerializedName("APPLICATION")
         private String application;
-        @SerializedName("HOST")
-        private String host;
+        @SerializedName("HOST_NAME")
+        private String hostName;
+        @SerializedName("HOST_IP")
+        private String hostIp;
         @SerializedName("NODE")
         private String node;
 
-        public String getHost() {
-            return host;
+        public String getHostIp() {
+            return hostIp;
         }
 
-        public Source setHost(String host) {
-            this.host = host;
+        public Source setHostIp(String hostIp) {
+            this.hostIp = hostIp;
+            return this;
+        }
+
+        public String getHostName() {
+            return hostName;
+        }
+
+        public Source setHostName(String hostName) {
+            this.hostName = hostName;
             return this;
         }
 
@@ -239,8 +250,9 @@ public abstract class StashLogData<T extends StashLogData> {
         @Override
         public String toString() {
             return "Source{" +
-                    "host='" + host + '\'' +
-                    ", application='" + application + '\'' +
+                    "application='" + application + '\'' +
+                    ", hostName='" + hostName + '\'' +
+                    ", hostIp='" + hostIp + '\'' +
                     ", node='" + node + '\'' +
                     '}';
         }

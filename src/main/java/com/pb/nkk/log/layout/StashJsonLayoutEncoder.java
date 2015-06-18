@@ -1,14 +1,16 @@
 package com.pb.nkk.log.layout;
 
 import ch.qos.logback.classic.encoder.PatternLayoutEncoder;
+import ch.qos.logback.classic.spi.ILoggingEvent;
+import ch.qos.logback.core.encoder.LayoutWrappingEncoder;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.pb.nkk.log.filler.FillerFactoryImpl;
 
 /**
- * Created by anatoliy on 18.06.2015.
+ * Created by anatoliy on 24.04.2015.
  */
-public class StashPatternLayoutEncoder extends PatternLayoutEncoder {
+public class StashJsonLayoutEncoder extends LayoutWrappingEncoder<ILoggingEvent> {
 
     private boolean prettyPrinting = false;
 
@@ -18,13 +20,11 @@ public class StashPatternLayoutEncoder extends PatternLayoutEncoder {
 
     @Override
     public void start() {
-        StashPattenLayout patternLayout = new StashPattenLayout();
+        StashJsonLayout patternLayout = new StashJsonLayout();
         patternLayout.setFillerFactory(new FillerFactoryImpl());
-        patternLayout.setContext(context);
         Gson gson = prettyPrinting ? new GsonBuilder().setPrettyPrinting().create() : new Gson();
         patternLayout.setGson(gson);
-        patternLayout.setPattern(getPattern());
-        patternLayout.setOutputPatternAsHeader(outputPatternAsHeader);
+        patternLayout.setContext(context);
         patternLayout.start();
         this.layout = patternLayout;
     }
